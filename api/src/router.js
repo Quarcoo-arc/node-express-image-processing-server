@@ -29,12 +29,14 @@ const photoPath = resolve(__dirname, "../../client/photo-viewer.html");
 
 const router = Router();
 
-router.post("/upload", upload.single("photo"), (req, res) => {
+router.post("/upload", upload.single("photo"), async (req, res) => {
   if (req.fileValidationError) {
     return res.status(400).json({ error: req.fileValidationError });
-  } else if (!req.fileValidationError) {
-    return res.status(201).json({ success: true });
   }
+  try {
+    await imageProcessor(req.file.filename);
+  } catch (error) {}
+  return res.status(201).json({ success: true });
 });
 
 router.get("/photo-viewer", (req, res) => {
