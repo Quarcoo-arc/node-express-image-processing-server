@@ -10,7 +10,7 @@ const filename = (req, file, callback) => {
 };
 
 const storage = diskStorage({
-  destination: "api/uploads",
+  destination: "api/uploads/",
   filename,
 });
 
