@@ -31,7 +31,7 @@ const router = Router();
 
 router.post("/upload", upload.single("photo"), async (req, res) => {
   if (req.fileValidationError) {
-    return res.status(400).json({ error: req.fileValidationError });
+    return res.status(400).json({ error: "Wrong file type" });
   }
   try {
     await imageProcessor(req.file.filename);
